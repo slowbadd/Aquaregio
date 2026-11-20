@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AquaRegio: consulta e interpretación de datos de pH del agua por zona.">
+    <title>AquaRegio | Monitoreo del agua</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">⌁</div>
+            <h2>AquaRegio</h2>
+        </div>
+
+        <p class="nav-label">MENÚ PRINCIPAL</p>
+
+        <nav class="nav-menu">
+            <a href="#inicio" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                Inicio
+            </a>
+
+            <a href="#consulta" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Consultar zonas
+            </a>
+
+            <a href="#registro" class="nav-item">
+                <span class="nav-icon">＋</span>
+                Registrar medición
+            </a>
+
+            <a href="#historial" class="nav-item">
+                <span class="nav-icon">◷</span>
+                Historial
+            </a>
+
+            <a href="#informacion" class="nav-item">
+                <span class="nav-icon">ⓘ</span>
+                Información
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            <span>Prototipo en desarrollo</span>
+        </div>
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar" id="inicio">
+            <div>
+                <p class="eyebrow">AQUAREGIO / PANEL</p>
+                <h1>Panel principal</h1>
+                <p class="topbar-description">
+                    Consulta e interpretación de información del agua.
+                </p>
+            </div>
+
+            <div class="topbar-tag">
+                <span class="status-dot"></span>
+                Vista de demostración
+            </div>
+        </header>
+
+
+        <!-- BIENVENIDA -->
+
+        <section class="welcome-banner">
+            <div class="welcome-content">
+                <span class="welcome-label">INFORMACIÓN DEL AGUA</span>
+                <h2>Conoce el agua de tu zona.</h2>
+                <p>
+                    Consulta registros de pH por ubicación y comprende
+                    sus valores mediante una interpretación sencilla.
+                </p>
+                <a href="#consulta" class="welcome-link">
+                    Explorar registros <span>→</span>
+                </a>
+            </div>
+
+            <div class="welcome-decoration" aria-hidden="true">
+                <span>≈</span>
+            </div>
+        </section>
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon">▤</span>
+                    <span class="stat-caption">TOTAL</span>
+                </div>
+                <p>Registros disponibles</p>
+                <h3 id="total-records">0</h3>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon">⌖</span>
+                    <span class="stat-caption">UBICACIONES</span>
+                </div>
+                <p>Zonas registradas</p>
+                <h3 id="total-zones">0</h3>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon">≈</span>
+                    <span class="stat-caption">ÚLTIMO REGISTRO</span>
+                </div>
+                <p>Valor de pH más reciente</p>
+                <h3 id="last-ph">--</h3>
+            </article>
+
+        </section>
+
+
+        <!-- CONSULTA -->
+
+        <section class="section-card" id="consulta">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">CONSULTA</span>
+                    <h2>Consultar una zona</h2>
+                    <p>Busca una colonia o sector para consultar sus registros.</p>
+                </div>
+            </div>
+
+            <form class="search-container" id="search-form">
+                <div class="search-input-wrap">
+                    <span class="input-icon">⌕</span>
+                    <input
+                        type="search"
+                        id="zone-search"
+                        placeholder="Escribe una colonia o sector..."
+                        autocomplete="off"
+                    >
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Buscar
+                </button>
+            </form>
+
+            <div id="search-result" aria-live="polite">
+                <div class="empty-state">
+                    <span class="empty-icon">⌕</span>
+                    <p>Los resultados de tu búsqueda aparecerán aquí.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- REGISTRO CIUDADANO -->
+
+        <section class="section-card" id="registro">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">PARTICIPACIÓN CIUDADANA</span>
+                    <h2>Registrar una medición</h2>
+                    <p>Introduce los datos de una medición propia de pH.</p>
+                </div>
+
+                <span class="section-symbol">＋</span>
+            </div>
+
+            <div class="form-notice">
+                <span class="notice-icon">ⓘ</span>
+                <p>
+                    Los registros enviados desde este formulario se identificarán
+                    como ciudadanos. No representan mediciones verificadas por
+                    Agua y Drenaje de Monterrey.
+                </p>
+            </div>
+
+            <form id="record-form" class="record-form">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="record-zone">Colonia o sector</label>
+                        <input
+                            type="text"
+                            id="record-zone"
+                            placeholder="Ej. Colonia Centro"
+                            maxlength="60"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="record-date">Fecha de medición</label>
+                        <input
+                            type="date"
+                            id="record-date"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="record-ph">Valor de pH</label>
+                        <input
+                            type="number"
+                            id="record-ph"
+                            placeholder="Ej. 7.2"
+                            min="0"
+                            max="14"
+                            step="0.1"
+                            required
+                        >
+                        <small>Introduce un valor entre 0 y 14.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="record-observations">Observaciones</label>
+                        <input
+                            type="text"
+                            id="record-observations"
+                            placeholder="Opcional"
+                            maxlength="150"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="secondary-button">
+                        Limpiar
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Guardar registro
+                    </button>
+                </div>
+
+                <div id="form-message" class="form-message" aria-live="polite"></div>
+
+            </form>
+
+        </section>
+
+
+        <!-- HISTORIAL -->
+
+        <section class="section-card" id="historial">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">ACTIVIDAD</span>
+                    <h2>Historial de registros</h2>
+                    <p>Consulta los registros disponibles en el prototipo.</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Identificador</th>
+                            <th>Zona</th>
+                            <th>Fecha</th>
+                            <th>pH</th>
+                            <th>Origen</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="records-table">
+                        <tr>
+                            <td colspan="5">Cargando registros...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="demo-notice">
+                Los registros iniciales son datos simulados para demostración.
+                Los registros ciudadanos son introducidos por el usuario y no
+                han sido verificados.
+            </div>
+
+        </section>
+
+
+        <!-- INFORMACIÓN -->
+
+        <section class="section-card" id="informacion">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">CONOCIMIENTO</span>
+                    <h2>¿Cómo interpretar el pH?</h2>
+                    <p>Una referencia para comprender las características del agua.</p>
+                </div>
+            </div>
+
+            <p class="ph-description">
+                El pH es una medida que permite identificar si una muestra
+                presenta características ácidas, neutras o alcalinas.
+            </p>
+
+            <div class="ph-scale">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="ph-scale-labels">
+                <span>Ácido</span>
+                <span>Neutro</span>
+                <span>Alcalino</span>
+            </div>
+
+            <div class="reference-note">
+                <strong>Intervalo de referencia: 6.5 a 8.5</strong>
+                <p>
+                    La NOM-127-SSA1-2021 establece este intervalo de pH
+                    para el agua de uso y consumo humano. El pH por sí solo
+                    no determina si el agua es potable.
+                </p>
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+            <p>AquaRegio · Proyecto STEM</p>
+            <p>Prototipo demostrativo en desarrollo.</p>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
